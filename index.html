@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .shell {
+        position: relative;
+        width: 100%;
+        height: 162px;
+        display: flex;
+        justify-content: center;
+      }
+      img {
+        position: absolute;
+        top: 66px;
+        left: 160px;
+        width: 162px;
+        height: 77px;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <img src="bilibili_summer.png" alt="" />
+      <video
+        muted
+        src="bilibili_header.mp4"
+        autoplay
+        loop
+        style="height: 100%; transform: translate(36px, -8px)"
+      ></video>
+    </div>
+    <script>
+      // 获取元素
+      const shell = document.querySelector(".shell");
+      const video = document.querySelector("video");
+      // 鼠标移入事件
+      shell.addEventListener("mouseenter", function (e) {
+        // 获取移入时鼠标坐标
+        x1 = e.clientX;
+        // 设置没有过渡
+        video.style.transition = "none";
+      });
+      // 鼠标移动事件
+      shell.addEventListener("mousemove", function (e) {
+        // 获取鼠标移动的实时坐标
+        x2 = e.clientX;
+        // 用移动坐标减去移入时的坐标获得移动的距离
+        const disx = x2 - x1;
+        // 原先移动的36px减去移动距离/20  防止移动速度过快
+        const move = 36 - disx / 20;
+        // 赋值给video
+        video.style.transform = `translate(${move}px,-8px)`;
+      });
+      // 鼠标移除事件
+      shell.addEventListener("mouseleave", function (e) {
+        // 将视频位置复原  设置0.3秒的过渡时间
+        video.style.transition = 0.3 + "s";
+        video.style.transform = "translate(36px,-8px)";
+      });
+    </script>
+  </body>
+</html>
